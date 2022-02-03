@@ -2,21 +2,24 @@ import { getTechnologies } from "./database.js";
 
 const technologies = getTechnologies()
 
+document.addEventListener(
+    "change",
+    (event) => {
+        if (event.target.id === "tech") {
+            window.alert(`User chose tech ${event.target.value}`)
+        }
+    }
+)
+
 export const Technologies = () => {
-    return `<h2>Technologies</h2>`
-    // let html = "<ul>"
+     let html = `<h2>Technologies</h2>`
+     html += `<select id="tech">`
+     html+= `<option value="0">Select a technology package</option>`
+     
+     for (const tech of technologies) {
+         html += `<option value="${tech.id}">${tech.package}</option>`
+     }
 
-    // // Use .map() for converting objects to <li> elements
-    // const listItemsArray = interiors.map(interior => {
-    //     return `<li>
-    //         <input type="radio" name="interior" value="${interior.id}" /> ${interior.interior}
-    //     </li>`
-    // })
-
-
-    // // Join all of the strings in the array into a single string
-    // html += listItemsArray.join("")
-
-    // html += "</ul>"
-    // return html
+     html += "</select>"
+     return html 
 }

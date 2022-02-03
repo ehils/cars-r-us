@@ -2,8 +2,30 @@ import { getPaints } from "./database.js";
 
 const paints = getPaints()
 
+document.addEventListener(
+    "change",
+    (event) => {
+        if (event.target.id === "paint") {
+            window.alert(`User chose paint ${event.target.value}`)
+        }
+    }
+)
+
 export const Paints = () => {
-    return `<h2>Paints</h2>`
+    let html = `<h2>Paints</h2>`
+
+    html += `<select id="paint">`
+    html += `<option value="0">Select a paint color</option>`
+
+    const listItemsArray = paints.map ( (paint) => {
+            return `<option value="${paint.id}">${paint.color}</option>`
+        }
+    )
+
+    html += listItemsArray.join("")
+    html += `</select>`
+    return html
+}
     // let html = "<ul>"
 
     // // Use .map() for converting objects to <li> elements
@@ -19,4 +41,3 @@ export const Paints = () => {
 
     // html += "</ul>"
     // return html
-}
