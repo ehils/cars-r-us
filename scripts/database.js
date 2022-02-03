@@ -31,10 +31,14 @@ const database = {
             interiorId: 1,
             packageId: 1,
             wheelId: 1,
+            date: 2/3/2022
+            // timestamp: 1614659931693
         }
     ],
     orderBuilder: {},
 }
+
+// Getter Functions
 
 export const getPaints = () => {
     return database.paints.map(paint => ({...paint}))
@@ -51,4 +55,47 @@ export const getWheels = () => {
 export const getOrders = () => {
     return database.customOrders.map(order => ({...order}))
 }
+
+// Setter Functions
+
+export const setPaint = (id) => {
+    return database.orderBuilder.paintId = id
+}
+export const setInterior = (id) => {
+    return database.orderBuilder.interiorId = id
+}
+export const setTechnology = (id) => {
+    return database.orderBuilder.packageId = id
+}
+export const setWheel = (id) => {
+    return database.orderBuilder.wheelId = id
+}
+
+// Chaning Permanent State Fucntion
+
+export const addCustomOrder = () => {
+    // Copy the current state of user choices
+    const newOrder = {...database.orderBuilder}
+
+    // Add a new primary key to the object
+    const lastIndex = database.customOrders.length - 1
+    newOrder.id = database.customOrders[lastIndex].id + 1
+
+    // Add a timestamp to the order
+    // newOrder.timestamp = Date.now()
+    
+    // Add actual date
+    newOrder.date = new Date().toLocaleString()
+
+    // Add the new order object to custom orders state
+    // from the orderBuilder
+    database.customOrders.push(newOrder)
+
+    // Reset the temporary state for user choices
+    database.orderBuilder = {}
+
+    // Broadcast a notification that permanent state has changed
+    document.dispatchEvent(new CustomEvent("stateChanged"))
+}
+
 
