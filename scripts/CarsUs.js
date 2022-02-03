@@ -4,7 +4,7 @@ import { Technologies } from "./Technologies.js";
 import { Wheels } from "./Wheels.js";
 
 export const CarsUs = () => {
-    `
+    return `
         <h1>Cars 'R' Us</h1>
 
         <article class="choices">
